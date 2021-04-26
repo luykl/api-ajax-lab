@@ -1,11 +1,11 @@
-// let subreddit = prompt("which subreddit?");
-let subreddit = "superbowl";
+let subreddit = prompt("which subreddit?");
+// let subreddit = "superbowl";
 let subredditDisplay = document.getElementById("heading");
-subredditDisplay.innerText = subreddit;
+subredditDisplay.innerText = `r/${subreddit}`;
 
-fetch(`https://www.reddit.com/r/${subreddit}/.json`)
+const promise = fetch(`https://www.reddit.com/r/${subreddit}/.json`)
 .then(res => res.json())
-.then(data => {
+promise.then(data => {
     let listingArray = data.data.children;
     let topEleven = listingArray.slice(0, 11);
     
@@ -34,4 +34,9 @@ fetch(`https://www.reddit.com/r/${subreddit}/.json`)
         article.appendChild(image);
 
     }
+});
+promise.catch(error => {
+    alert("try again");
+    location.reload();
+
 });
